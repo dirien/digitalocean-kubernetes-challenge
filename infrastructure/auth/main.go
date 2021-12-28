@@ -35,8 +35,30 @@ func main() {
 			return err
 		}
 
-		ctx.Export("clientId", argoCD.ClientId)
-		ctx.Export("clientSecret", argoCD.ClientSecret)
+		ctx.Export("argo.clientId", argoCD.ClientId)
+		ctx.Export("argo.clientSecret", argoCD.ClientSecret)
+
+		grafana, err := auth0.NewClient(ctx, "grafana", &auth0.ClientArgs{
+			AllowedLogoutUrls: pulumi.StringArray{
+				pulumi.String("https://grafana.ediri.online"),
+			},
+			AllowedOrigins: pulumi.StringArray{
+				pulumi.String("https://grafana.ediri.online"),
+			},
+			AppType: pulumi.String("regular_web"),
+			Callbacks: pulumi.StringArray{
+				pulumi.String("https://grafana.ediri.online/auth/callback"),
+				pulumi.String("https://grafana.ediri.online/login/generic_oauth"),
+			},
+			JwtConfiguration: &auth0.ClientJwtConfigurationArgs{
+				Alg: pulumi.String("RS256"),
+			},
+		})
+		if err != nil {
+			return err
+		}
+		ctx.Export("grafana.clientId", grafana.ClientId)
+		ctx.Export("grafana.clientSecret", grafana.ClientSecret)
 		return nil
 	})
 }
