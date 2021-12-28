@@ -14,3 +14,6 @@ I picked following challenge:
 ### Auth0
 
 In the folder `infrastructure/auth` I created a Pulumi Program, to deploy the Auth0 infrastructure.
+
+Grafana and auth0
+https://blog.dahanne.net/2020/04/15/integrating-auth0-oidc-oauth-2-with-authorization-groups-and-roles/
