@@ -5,6 +5,13 @@ metadata:
 spec:
   workspaces:
     - name: source-dir
+      volumeClaimTemplate:
+        spec:
+          resources:
+            requests:
+              storage: 5Gi
+          accessModes:
+            - ReadWriteOnce
   tasks:
     - name: git-clone
       params:
@@ -18,11 +25,4 @@ spec:
       workspaces:
         - name: output
           workspace: source-dir
-          volumeClaimTemplate:
-            spec:
-              resources:
-                requests:
-                  storage: 5Gi
-              accessModes:
-                - ReadWriteOnce
 
