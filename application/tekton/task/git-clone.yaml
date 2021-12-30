@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: example-run
+spec:
+  taskRef:
+    name: git-clone
+    bundle: gcr.io/tekton-releases/catalog/upstream/git-clone:0.5
+  params:
+    params:
+      - name: url
+        value: 'https://github.com/dirien/digitalocean-kubernetes-challenge.git'
+      - name: revision
+        value: cicd
+  workspaces:
+    - name: source-dir
