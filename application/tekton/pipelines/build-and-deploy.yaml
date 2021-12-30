@@ -7,6 +7,14 @@ spec:
     - name: source-dir
   tasks:
     - name: git-clone
+      params:
+        - name: url
+          value: 'https://github.com/dirien/digitalocean-kubernetes-challenge.git'
+        - name: revision
+          value: cicd
+      taskRef:
+        name: git-clone
+        bundle: gcr.io/tekton-releases/catalog/upstream/git-clone:0.5
       workspaces:
         - name: output
           workspace: source-dir
