@@ -3,6 +3,8 @@ kind: Pipeline
 metadata:
   name: tekton-argocd-example-build-deploy-pipeline
 spec:
+  workspaces:
+    - name: source-dir
   tasks:
     - name: git-clone
       params:
