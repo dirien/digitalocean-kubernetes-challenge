@@ -85,6 +85,19 @@ func main() {
 		ctx.Export("cluster", kubernetesCluster.Name)
 		ctx.Export("toolsNodePoolName", toolsNodePool.Name)
 		ctx.Export("kubeconfig", pulumi.ToSecret(kubernetesCluster.KubeConfigs.ToKubernetesClusterKubeConfigArrayOutput().Index(pulumi.Int(0)).RawConfig()))
+
+		bucket, err := digitalocean.NewSpacesBucket(ctx, "loki-bucket", &digitalocean.SpacesBucketArgs{
+			Name:   pulumi.String("loki-bucket"),
+			Region: pulumi.String(dokRegion),
+		})
+		if err != nil {
+			return err
+		}
+
+		ctx.Export("loki.bucket.Name", bucket.Name)
+		ctx.Export("loki.bucket.BucketDomainName", bucket.BucketDomainName)
+		ctx.Export("loki.bucket.region", bucket.Region)
+
 		return nil
 	})
 }

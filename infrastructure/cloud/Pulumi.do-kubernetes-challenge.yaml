@@ -1,8 +1,12 @@
 config:
-  digitalocean:token:
-    secure: AAABAPjHyqKUhAJukglY8o0/31oJqCj8lH1FsZxpLZUqEWg/RUe0EeEdTfoAJ99QPpsjUQEs/AYUFMzh6QaMQee32Ucvo8MAZ67aE/Is0cl7j4EhKKagd4vY6CFWI5h4
   cloud:region: fra1
   cloud:size-base-node-pool: s-2vcpu-2gb
   cloud:size-tools-node-pool: s-4vcpu-8gb
   cloud:size-workload-node-pool: s-2vcpu-2gb
   cloud:version: 1.21.5-do.0
+  digitalocean:spaces_access_id:
+    secure: AAABAPI8OlYYvT3M5CclCIpHtFeFXs4S3ks0vb+uX6xrIAWgHPh8DUpD9j/vJpjmY33OcQ==
+  digitalocean:spaces_secret_key:
+    secure: AAABAPir/4r0zEGOQpVW9UR/nSEIKMT75AJMahay2408MC+A9ry9INyR6EA//8Y7zPDn1IHAgNahZ36av9/VKe6g2OkmLOXxErme
+  digitalocean:token:
+    secure: AAABAPjHyqKUhAJukglY8o0/31oJqCj8lH1FsZxpLZUqEWg/RUe0EeEdTfoAJ99QPpsjUQEs/AYUFMzh6QaMQee32Ucvo8MAZ67aE/Is0cl7j4EhKKagd4vY6CFWI5h4
