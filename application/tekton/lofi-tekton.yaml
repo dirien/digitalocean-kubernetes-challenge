@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: lofi-tekton
+  name: lofi-app
   namespace: argo
 spec:
   destination:
@@ -13,8 +13,5 @@ spec:
     repoURL: https://github.com/dirien/digitalocean-kubernetes-challenge.git
     targetRevision: cicd
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
     syncOptions:
       - CreateNamespace=true
