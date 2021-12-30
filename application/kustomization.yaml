@@ -4,5 +4,5 @@ kind: Kustomization
 namespace: lofi-tekton-pipelines
 
 resources:
-  - tekton
-  - argocd
+  - tekton/
+  - deployment/
