@@ -5,3 +5,4 @@ resources:
   - release-pipelines.yaml
   - release-triggers.yaml
   - interceptors.yaml
+  - tekton-dashboard-release.yaml
