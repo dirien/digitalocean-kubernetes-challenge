@@ -9,7 +9,7 @@ spec:
         - name: url
           value: 'https://github.com/dirien/digitalocean-kubernetes-challenge.git'
         - name: revision
-          value: main
+          value: cicd
       taskRef:
         kind: ClusterTask
         name: git-clone
