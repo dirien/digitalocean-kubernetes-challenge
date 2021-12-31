@@ -34,13 +34,10 @@ spec:
           workspace: source-dir
     - name: golang-build
       params:
-        - name: package
-          value: github.com/dirien/simple
-        - name: packages
-          value: ./application/lofi-app
+        - name: path
+          value: ./application/
       taskRef:
-        name: golang-build
-        bundle: gcr.io/tekton-releases/catalog/upstream/golang-build:0.3
+        name: go-build
       runAfter:
         - golangci-lint
       workspaces:

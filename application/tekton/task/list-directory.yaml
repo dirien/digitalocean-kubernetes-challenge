@@ -14,3 +14,21 @@ spec:
       workingDir: $(workspaces.source.path)
       script: |
         ls -laR $(params.path)
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: go-build
+spec:
+  workspaces:
+    - name: source
+  params:
+    - name: path
+      default: ""
+  steps:
+    - name: build
+      image: golang:1.17
+      workingDir: $(workspaces.source.path)
+      script: |
+        cd $(params.path)
+        go build -o $(workspaces.source.path) .
