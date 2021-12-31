@@ -13,7 +13,7 @@ var font []byte
 func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-
+		log.Println("request:", r.URL.Path)
 		w.Header().Set("Content-Type", "image/gif")
 		if _, err := io.WriteString(w, string(font)); err != nil {
 			log.Fatal(err)
