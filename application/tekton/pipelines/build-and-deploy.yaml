@@ -36,6 +36,8 @@ spec:
       params:
         - name: package
           value: github.com/dirien/simple
+        - name: packages
+          value: application/lofi-app
       taskRef:
         name: golang-build
         bundle: gcr.io/tekton-releases/catalog/upstream/golang-build:0.3
@@ -55,6 +57,15 @@ metadata:
 spec:
   pipelineRef:
     name: lofi-pipeline
+  podTemplate:
+    nodeSelector:
+      beta.kubernetes.io/os: linux
+      doks.digitalocean.com/node-pool: tools-node-pool
+    tolerations:
+      - effect: NoSchedule
+        key: tools
+        operator: Equal
+        value: "true"
   workspaces:
     - name: source-dir
       volumeClaimTemplate:
