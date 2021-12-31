@@ -27,6 +27,8 @@ spec:
       taskRef:
         name: golangci-lint
         bundle: gcr.io/tekton-releases/catalog/upstream/golangci-lint:0.2
+      runAfter:
+        - git-clone
       workspaces:
         - name: source
           workspace: source-dir
@@ -39,6 +41,8 @@ spec:
       taskRef:
         name: golang-build
         bundle: gcr.io/tekton-releases/catalog/upstream/golang-build:0.3
+      runAfter:
+        - golangci-lint
       workspaces:
         - name: source
           workspace: source-dir
@@ -59,6 +63,6 @@ spec:
         spec:
           resources:
             requests:
-              storage: 5Gi
+              storage: 2Gi
           accessModes:
             - ReadWriteOnce
