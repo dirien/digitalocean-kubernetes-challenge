@@ -7,3 +7,4 @@ resources:
   - eventlistener.yaml
   - triggertemplate.yaml
   - rbac.yaml
+  - ingress.yaml
