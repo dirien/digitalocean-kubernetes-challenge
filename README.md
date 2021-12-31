@@ -17,3 +17,9 @@ In the folder `infrastructure/auth` I created a Pulumi Program, to deploy the Au
 
 Grafana and auth0
 https://blog.dahanne.net/2020/04/15/integrating-auth0-oidc-oauth-2-with-authorization-groups-and-roles/
+
+### Sealed Secrets
+
+```
+kubeseal  --controller-namespace sealed-secrets --controller-name sealed-secrets --scope cluster-wide -o yaml <github-webhook-secret.yaml >github-webhook-secret-ss.yaml
+```

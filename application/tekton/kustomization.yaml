@@ -6,5 +6,5 @@ namespace: lofi-tekton-pipelines
 resources:
   - pipelines/pipeline.yaml
   - task/tasks.yaml
-  - resources/secret.yaml
+  - resources
   - trigger
