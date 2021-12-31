@@ -54,7 +54,7 @@ spec:
     - name: kaniko-build
       params:
         - name: dockerfile
-          value: application/lofi-app/Dockerfile
+          value: ./application/lofi-app/Dockerfile
         - name: image
           value: ghcr.io/dirien/lofi-app
       taskRef:
