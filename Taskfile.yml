@@ -1,0 +1,67 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+
+  auth0-preview:
+    dir: infrastructure/auth
+    cmds:
+      - pulumi preview
+
+  auth0-deploy:
+    deps:
+      - auth0-preview
+    dir: infrastructure/auth
+    cmds:
+      - pulumi up -y
+
+  digitalocean-infra-preview:
+    dir: infrastructure/cloud
+    cmds:
+      - pulumi preview
+
+  digitalocean-infra-deploy:
+    deps:
+      - digitalocean-infra-preview
+    dir: infrastructure/cloud
+    generates:
+      - kubeconfig.yaml
+    cmds:
+      - pulumi up -y
+      - pulumi stack output kubeconfig --show-secrets > kubeconfig.yaml
+
+  deploy-servicemonitor-crd:
+    deps:
+      - digitalocean-infra-deploy
+    dir: infrastructure/cloud
+    cmds:
+      - kubectl apply -f https://raw.githubusercontent.com/prometheus-community/helm-charts/main/charts/kube-prometheus-stack/crds/crd-servicemonitors.yaml
+    env:
+      KUBECONFIG: ../cloud/kubeconfig.yaml
+
+  kubernetes-services-preview:
+    deps:
+      - task: digitalocean-infra-deploy
+      - task: auth0-deploy
+    dir: infrastructure/services
+    cmds:
+      - task: deploy-servicemonitor-crd
+      - pulumi preview
+    env:
+      KUBECONFIG: ../cloud/kubeconfig.yaml
+
+  kubernetes-services-deploy:
+    deps:
+      - task: kubernetes-services-preview
+    dir: infrastructure/services
+    cmds:
+      - task: deploy-servicemonitor-crd
+      - pulumi up -y
+    env:
+      KUBECONFIG: ../cloud/kubeconfig.yaml
+
+  default:
+    cmds:
+      - task: kubernetes-services-deploy
+
