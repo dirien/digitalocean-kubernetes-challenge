@@ -4,9 +4,7 @@ metadata:
   name: tekton-argocd-example-build-deploy-pipeline
 spec:
   workspaces:
-    - name: source-dir
-  params:
-    - name: package
+    - name: source-di
   tasks:
     - name: git-clone
       params:
