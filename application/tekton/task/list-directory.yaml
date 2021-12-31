@@ -7,7 +7,7 @@ spec:
     - name: source
   params:
     - name: path
-      value: ""
+      default: ""
   steps:
     - name: list
       image: alpine:latest
