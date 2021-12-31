@@ -7,7 +7,7 @@ spec:
     - name: source
   params:
     - name: path
-      default: ""
+      default: "./"
   steps:
     - name: list
       image: alpine:latest
@@ -31,8 +31,6 @@ spec:
       workingDir: $(workspaces.source.path)
       script: |
         echo "Building..."
-        echo $(workspaces.source.path)
-        pwd
         cd $(params.path)
         ls -la
         go build -o $(workspaces.source.path) .
