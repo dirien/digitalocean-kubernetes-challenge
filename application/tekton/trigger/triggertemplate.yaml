@@ -14,24 +14,24 @@ spec:
       spec:
         pipelineRef:
           name: lofi-pipeline
-          params:
-            - name: revision
-              value: $(tt.params.gitrevision)
-          podTemplate:
-            nodeSelector:
-              beta.kubernetes.io/os: linux
-              doks.digitalocean.com/node-pool: tools-node-pool
-            tolerations:
-              - effect: NoSchedule
-                key: tools
-                operator: Equal
-                value: "true"
-          workspaces:
-            - name: source-dir
-              volumeClaimTemplate:
-                spec:
-                  resources:
-                    requests:
-                      storage: 2Gi
-                  accessModes:
-                    - ReadWriteOnce
+        params:
+          - name: revision
+            value: $(tt.params.gitrevision)
+        podTemplate:
+          nodeSelector:
+            beta.kubernetes.io/os: linux
+            doks.digitalocean.com/node-pool: tools-node-pool
+          tolerations:
+            - effect: NoSchedule
+              key: tools
+              operator: Equal
+              value: "true"
+        workspaces:
+          - name: source-dir
+            volumeClaimTemplate:
+              spec:
+                resources:
+                  requests:
+                    storage: 2Gi
+                accessModes:
+                  - ReadWriteOnce
