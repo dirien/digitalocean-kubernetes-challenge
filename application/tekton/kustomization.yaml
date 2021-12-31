@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: lofi-tekton-pipelines
 
 resources:
-  - pipelines/build-and-deploy.yaml
+  - pipelines/pipeline.yaml
   - task/tasks.yaml
-  - resources/github-secret.yaml
+  - resources/secret.yaml
   - trigger
