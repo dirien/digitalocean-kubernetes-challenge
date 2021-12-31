@@ -57,6 +57,8 @@ spec:
           value: ./application/lofi-app/Dockerfile
         - name: image
           value: ghcr.io/dirien/lofi-app
+        - name: context
+          value: application/lofi-app
       taskRef:
         name: kaniko-build
       runAfter:
