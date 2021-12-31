@@ -30,8 +30,8 @@ spec:
             nodeSelector:
               beta.kubernetes.io/os: linux
               doks.digitalocean.com/node-pool: tools-node-pool
-              tolerations:
-                - effect: NoSchedule
-                  key: tools
-                  operator: Equal
-                  value: "true"
+            tolerations:
+              - effect: NoSchedule
+                key: tools
+                operator: Equal
+                value: "true"
