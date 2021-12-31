@@ -7,9 +7,11 @@ spec:
     - name: source-dir
   params:
     - name: revision
-      default:
+      type: string
+      default: ""
     - name: url
       default: ""
+      type: string
   tasks:
     - name: git-clone
       params:
