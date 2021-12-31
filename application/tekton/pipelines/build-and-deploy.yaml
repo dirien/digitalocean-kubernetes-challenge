@@ -35,7 +35,7 @@ spec:
     - name: golang-build
       params:
         - name: path
-          value: ./application/
+          value: ./application/lofi-app
       taskRef:
         name: go-build
       runAfter:
