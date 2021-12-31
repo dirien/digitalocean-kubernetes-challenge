@@ -5,13 +5,16 @@ metadata:
 spec:
   workspaces:
     - name: source-dir
+  params:
+    - name: revision
+      value: cicd
   tasks:
     - name: git-clone
       params:
         - name: url
           value: 'https://github.com/dirien/digitalocean-kubernetes-challenge.git'
         - name: revision
-          value: cicd
+          value: $(params.revision)
       taskRef:
         name: git-clone
         bundle: gcr.io/tekton-releases/catalog/upstream/git-clone:0.5
