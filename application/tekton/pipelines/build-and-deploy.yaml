@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: tekton-argocd-example-build-deploy-pipeline
+  name: lofi-pipeline
 spec:
   workspaces:
     - name: source-dir
@@ -16,7 +16,7 @@ spec:
         name: git-clone
         bundle: gcr.io/tekton-releases/catalog/upstream/git-clone:0.5
       workspaces:
-        - name: source
+        - name: output
           workspace: source-dir
     - name: golangci-lint
       params:
@@ -28,6 +28,23 @@ spec:
         name: golangci-lint
         bundle: gcr.io/tekton-releases/catalog/upstream/golangci-lint:0.2
       workspaces:
-        - name: output
+        - name: source
           workspace: source-dir
 
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: lofi-pipeline-run
+spec:
+  pipelineRef:
+    name: lofi-pipeline
+  workspaces:
+    - name: source-dir
+      volumeClaimTemplate:
+        spec:
+          resources:
+            requests:
+              storage: 5Gi
+          accessModes:
+            - ReadWriteOnce
