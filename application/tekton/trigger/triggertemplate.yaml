@@ -29,6 +29,9 @@ spec:
               operator: Equal
               value: "true"
         workspaces:
+          - name: dockerconfig
+            secret:
+              secretName: kaniko-github-configjson
           - name: source-dir
             volumeClaimTemplate:
               spec:

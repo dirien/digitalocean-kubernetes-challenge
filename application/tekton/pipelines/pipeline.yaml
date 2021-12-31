@@ -5,6 +5,7 @@ metadata:
 spec:
   workspaces:
     - name: source-dir
+    - name: dockerconfig
   params:
     - name: revision
       type: string
@@ -63,6 +64,8 @@ spec:
       workspaces:
         - name: source
           workspace: source-dir
+        - name: dockerconfig
+          workspace: dockerconfig
 ---
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
@@ -83,6 +86,9 @@ spec:
         operator: Equal
         value: "true"
   workspaces:
+    - name: dockerconfig
+      secret:
+        secretName: kaniko-github-configjson
     - name: source-dir
       volumeClaimTemplate:
         spec:

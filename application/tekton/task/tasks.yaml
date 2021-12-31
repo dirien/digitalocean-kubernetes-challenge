@@ -57,6 +57,10 @@ spec:
       default: gcr.io/kaniko-project/executor:v1.7.0@sha256:8504bde9a9a8c9c4e9a4fe659703d265697a36ff13607b7669a4caa4407baa52
   workspaces:
     - name: source
+    - name: dockerconfig
+      description: Includes a docker `config.json`
+      optional: true
+      mountPath: /kaniko/.docker
   results:
     - name: imageDigest
       description: Digest of the image just built.
@@ -64,9 +68,6 @@ spec:
     - name: build-and-push
       workingDir: $(workspaces.source.path)
       image: $(params.builderImage)
-      env:
-        - name: DOCKER_CONFIG
-          value: "/builder/home/.docker/"
       args:
         - --dockerfile=$(params.dockerfile)
         - --context=$(workspaces.source.path)/$(params.context)  # The user does not need to care the workspace and the source.

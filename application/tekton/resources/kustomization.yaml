@@ -3,5 +3,5 @@ kind: Kustomization
 
 
 resources:
-  - basic-github-container-user-pass-ss.yaml
+  - kaniko-github-configjson-ss.yaml
   - github-webhook-secret-ss.yaml

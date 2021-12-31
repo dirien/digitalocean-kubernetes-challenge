@@ -1,0 +1,19 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  annotations:
+    sealedsecrets.bitnami.com/cluster-wide: "true"
+  creationTimestamp: null
+  name: kaniko-github-configjson
+spec:
+  encryptedData:
+    config.json: AgAoI3Yzx72GLVLaZaYEJpuhjIKQC7r+s9cF6T6kXaAd797H54P2VUj6n+FT2mDu5v9m+cSQ8niaZIVWBgiYgT/xZo+cp7N9/5vIHS/pcfsI+NQpjyCs7ZwcHZWUUEGA8dMpqfKKuzx4VfJUz1rwOjesXbOTxZhc6f8njKqzmScvZSmuXJDRcTAMKyCaFCV0/bww5U+Mwp723sue5C+ZFY4WyJfJkzf7w3eBTQjWopMgEp4pGvOR4rGowD44Ceu54Efpi7fU+UD4JmXNZtfEF4poWtVxgoTlcqItIOT3W4wIUmZ2jISJW9Uy3JCPjcTr4vsS4w7SAt38FjcmqC/+THAJWEBVqY3kgnTfx6MG+2XVLtr7AZy0C2rUMAz7YovxivYevq+/3Z/LFkn6LsDpU1IEIsqZ/D81a+CkviuWKy0qXlHLAIClY8Axft20FX4q8XwTYtW+u6dNvH+cgJCnBRnH9y87nRt27LE4IlCWHF96b0dK1dvgQw+2vyRFkdaH6NuVN+vFMMb7smr+NEcLSSnw2FXvCcq7M7gG0NcG1Ea7um73Tx1QhSs7gJL3ElToXGR3Ra5yIJObx/7YszrGZ07/1lQeMGYZv+yA4OOASePD06d3leorqzPXv3FfoKZzlaXycoPaGJq00Vm9E70tDfb6Dr5twV5xAy5zWf7nKFdvQdvR29OiyRXXeM0x1ENWmodPID2MI/86bybwvjonkmBcVS4hu9DVLFmOvYk/efv865Gqo1ApVJcJoB6ZcbNmy/KUVNFmpDZvoHsHc46SIenesHGn3SBKuwtFClwxpk7e2DRvjHO41J/E9ov5CLh8auAs0dG2vPD4JFyH4kHWD22kVA3MfTpGveZUMeIy
+  template:
+    data: null
+    metadata:
+      annotations:
+        sealedsecrets.bitnami.com/cluster-wide: "true"
+      creationTimestamp: null
+      name: kaniko-github-configjson
+    type: kubernetes.io/basic-auth
+
