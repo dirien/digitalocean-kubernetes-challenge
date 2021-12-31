@@ -1,0 +1,54 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: github-listener
+spec:
+  triggers:
+    - name: github-listener-push
+      interceptors:
+        - ref:
+            name: "github"
+          params:
+            - name: "secretRef"
+              value:
+                secretName: github-webhook-secret
+                secretKey: secretToken
+            - name: "eventTypes"
+              value: [
+                  "push"
+              ]
+      bindings:
+        - ref: github-push-binding
+      template:
+        ref: github-template
+    - name: github-listener-pr
+      interceptors:
+        - ref:
+            name: "github"
+          params:
+            - name: "secretRef"
+              value:
+                secretName: github-webhook-secret
+                secretKey: secretToken
+            - name: "eventTypes"
+              value: [
+                  "pull_request"
+              ]
+      bindings:
+        - ref: github-pr-binding
+      template:
+        ref: github-template
+  resources:
+    kubernetesResource:
+      spec:
+        template:
+          spec:
+            serviceAccountName: lofi-trigger-sa
+            nodeSelector:
+              beta.kubernetes.io/os: linux
+              doks.digitalocean.com/node-pool: tools-node-pool
+            tolerations:
+              - effect: NoSchedule
+                key: tools
+                operator: Equal
+                value: "true"

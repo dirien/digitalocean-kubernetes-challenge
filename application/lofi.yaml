@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lofi
+  namespace: argo
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: application
+    repoURL: https://github.com/dirien/digitalocean-kubernetes-challenge.git
+    targetRevision: cicd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

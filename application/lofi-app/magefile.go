@@ -1,7 +1,7 @@
 //go:build mage
 // +build mage
 
-package main
+package app
 
 import (
 	"fmt"

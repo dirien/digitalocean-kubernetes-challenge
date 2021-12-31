@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: lofi
+  name: lofi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lofi
+  strategy: { }
+  template:
+    metadata:
+      labels:
+        app: lofi
+    spec:
+      imagePullSecrets:
+        - name: lofi-registry-pull-secret
+      nodeSelector:
+        beta.kubernetes.io/os: linux
+        doks.digitalocean.com/node-pool: workload-node-pool
+      tolerations:
+        - effect: NoSchedule
+          key: workload
+          operator: Equal
+          value: "true"
+      containers:
+        - image: lofi
+          name: lofi-app
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+            requests:
+              cpu: "100m"
+              memory: "128Mi"

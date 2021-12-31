@@ -1,0 +1,104 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: lofi-pipeline
+spec:
+  workspaces:
+    - name: source-dir
+    - name: dockerconfig
+  params:
+    - name: revision
+      type: string
+      default: ""
+    - name: url
+      default: ""
+      type: string
+  tasks:
+    - name: git-clone
+      params:
+        - name: url
+          value: $(params.url)
+        - name: revision
+          value: $(params.revision)
+      taskRef:
+        name: git-clone
+        bundle: gcr.io/tekton-releases/catalog/upstream/git-clone:0.5
+      workspaces:
+        - name: output
+          workspace: source-dir
+    - name: golangci-lint
+      params:
+        - name: package
+          value: github.com/dirien/simple
+        - name: context
+          value: application/lofi-app
+      taskRef:
+        name: golangci-lint
+        bundle: gcr.io/tekton-releases/catalog/upstream/golangci-lint:0.2
+      runAfter:
+        - git-clone
+      workspaces:
+        - name: source
+          workspace: source-dir
+    - name: golang-build
+      params:
+        - name: path
+          value: ./application/lofi-app
+      taskRef:
+        name: go-build
+      runAfter:
+        - golangci-lint
+      workspaces:
+        - name: source
+          workspace: source-dir
+    - name: kaniko-build
+      params:
+        - name: dockerfile
+          value: ./application/lofi-app/Dockerfile
+        - name: image
+          value: ghcr.io/dirien/lofi-app
+        - name: context
+          value: application/lofi-app
+      taskRef:
+        name: kaniko-build
+      runAfter:
+        - golang-build
+      workspaces:
+        - name: source
+          workspace: source-dir
+        - name: dockerconfig
+          workspace: dockerconfig
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: lofi-pipeline-run
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+spec:
+  pipelineRef:
+    name: lofi-pipeline
+  podTemplate:
+    nodeSelector:
+      beta.kubernetes.io/os: linux
+      doks.digitalocean.com/node-pool: tools-node-pool
+    tolerations:
+      - effect: NoSchedule
+        key: tools
+        operator: Equal
+        value: "true"
+  workspaces:
+    - name: dockerconfig
+      secret:
+        secretName: kaniko-github-configjson
+        items:
+          - key: .dockerconfigjson
+            path: config.json
+    - name: source-dir
+      volumeClaimTemplate:
+        spec:
+          resources:
+            requests:
+              storage: 2Gi
+          accessModes:
+            - ReadWriteOnce

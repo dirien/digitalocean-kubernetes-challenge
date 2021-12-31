@@ -1,0 +1,45 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: github-template
+spec:
+  params:
+    - name: gitrevision
+    - name: gitrepositoryurl
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: github-run-
+      spec:
+        pipelineRef:
+          name: lofi-pipeline
+        params:
+          - name: revision
+            value: $(tt.params.gitrevision)
+          - name: url
+            value: $(tt.params.gitrepositoryurl)
+        podTemplate:
+          nodeSelector:
+            beta.kubernetes.io/os: linux
+            doks.digitalocean.com/node-pool: tools-node-pool
+          tolerations:
+            - effect: NoSchedule
+              key: tools
+              operator: Equal
+              value: "true"
+        workspaces:
+          - name: dockerconfig
+            secret:
+              secretName: kaniko-github-configjson
+              items:
+                - key: .dockerconfigjson
+                  path: config.json
+          - name: source-dir
+            volumeClaimTemplate:
+              spec:
+                resources:
+                  requests:
+                    storage: 2Gi
+                accessModes:
+                  - ReadWriteOnce

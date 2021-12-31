@@ -1,0 +1,81 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: list-directory
+spec:
+  workspaces:
+    - name: source
+  params:
+    - name: path
+      default: "./"
+  steps:
+    - name: list
+      image: alpine:latest
+      workingDir: $(workspaces.source.path)
+      script: |
+        ls -laR $(params.path)
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: go-build
+spec:
+  workspaces:
+    - name: source
+  params:
+    - name: path
+      default: ""
+    - name: tag
+      default: "latest"
+    - name: ldflags
+      default: ""
+  steps:
+    - name: build
+      image: golang:$(params.tag)
+      workingDir: $(workspaces.source.path)
+      script: |
+        echo "Building..."
+        cd $(params.path)
+        go build -ldflags=$(params.ldflags) .
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: kaniko-build
+spec:
+  params:
+    - name: image
+      description: Name (reference) of the image to build.
+    - name: version
+      description: Version of the image to build.
+      default: "latest"
+    - name: dockerfile
+      description: Path to the Dockerfile to build.
+      default: ./Dockerfile
+    - name: context
+      description: The build context used by Kaniko.
+      default: ./
+    - name: builderImage
+      description: The image on which builds will run (default is v1.7.0)
+      default: gcr.io/kaniko-project/executor:v1.7.0@sha256:8504bde9a9a8c9c4e9a4fe659703d265697a36ff13607b7669a4caa4407baa52
+  workspaces:
+    - name: source
+    - name: dockerconfig
+      description: Includes a docker `config.json`
+      optional: true
+      mountPath: /kaniko/.docker/
+  results:
+    - name: imageDigest
+      description: Digest of the image just built.
+  steps:
+    - name: build-and-push
+      workingDir: $(workspaces.source.path)
+      image: $(params.builderImage)
+      args:
+        - --dockerfile=$(params.dockerfile)
+        - --context=$(workspaces.source.path)/$(params.context)  # The user does not need to care the workspace and the source.
+        - --destination=$(params.image):$(params.version)
+        - --oci-layout-path=$(workspaces.source.path)/$(params.context)/image-digest
+        - --reproducible
+      securityContext:
+        runAsUser: 0
