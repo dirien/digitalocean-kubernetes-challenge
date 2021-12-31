@@ -66,7 +66,7 @@ spec:
       image: $(params.builderImage)
       env:
         - name: DOCKER_CONFIG
-          value: /tekton/home/.docker
+          value: "/builder/home/.docker/"
       args:
         - --dockerfile=$(params.dockerfile)
         - --context=$(workspaces.source.path)/$(params.context)  # The user does not need to care the workspace and the source.
