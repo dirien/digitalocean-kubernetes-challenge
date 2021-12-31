@@ -50,9 +50,14 @@ spec:
       workspaces:
         - name: source
           workspace: source-dir
-    - name: list-directory
+    - name: kaniko-build
+      params:
+        - name: dockerfile
+          value: application/lofi-app/Dockerfile
+        - name: image
+          value: ghcr.io/dirien/lofi-app
       taskRef:
-        name: list-directory
+        name: kaniko-build
       runAfter:
         - golang-build
       workspaces:

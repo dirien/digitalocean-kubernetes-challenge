@@ -5,6 +5,6 @@ namespace: lofi-tekton-pipelines
 
 resources:
   - pipelines/build-and-deploy.yaml
-  - task/list-directory.yaml
+  - task/tasks.yaml
   - resources/github-secret.yaml
   - trigger
