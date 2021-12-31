@@ -18,6 +18,17 @@ spec:
       workspaces:
         - name: output
           workspace: source-dir
+    - name: golangci-lint
+      params:
+        - name: context
+          value: application/lofi-app
+      taskRef:
+        name: golangci-lint
+        bundle: gcr.io/tekton-releases/catalog/upstream/golangci-lint:0.2
+      workspaces:
+        - name: output
+          workspace: source-dir
+
 ---
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
