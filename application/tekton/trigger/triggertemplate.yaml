@@ -17,6 +17,8 @@ spec:
         params:
           - name: revision
             value: $(tt.params.gitrevision)
+          - name: url
+            value: $(tt.params.gitrepositoryurl)
         podTemplate:
           nodeSelector:
             beta.kubernetes.io/os: linux

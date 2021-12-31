@@ -7,12 +7,14 @@ spec:
     - name: source-dir
   params:
     - name: revision
-      default: cicd
+      default:
+    - name: url
+      default: ""
   tasks:
     - name: git-clone
       params:
         - name: url
-          value: 'https://github.com/dirien/digitalocean-kubernetes-challenge.git'
+          value: $(params.url)
         - name: revision
           value: $(params.revision)
       taskRef:

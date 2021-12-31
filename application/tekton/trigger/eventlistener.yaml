@@ -4,7 +4,24 @@ metadata:
   name: github-listener
 spec:
   triggers:
-    - name: github-listener
+    - name: github-listener-push
+      interceptors:
+        - ref:
+            name: "github"
+            params:
+              - name: "secretRef"
+                value:
+                  secretName: github-secret
+                  secretKey: secretToken
+              - name: "eventTypes"
+                value: [
+                    "push"
+                ]
+      bindings:
+        - ref: github-push-binding
+      template:
+        ref: github-template
+    - name: github-listener-pr
       interceptors:
         - ref:
             name: "github"
@@ -14,7 +31,9 @@ spec:
                 secretName: github-secret
                 secretKey: secretToken
             - name: "eventTypes"
-              value: [ "pull_request","push" ]
+              value: [
+                  "pull_request"
+              ]
       bindings:
         - ref: github-pr-binding
       template:
