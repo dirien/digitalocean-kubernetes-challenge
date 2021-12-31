@@ -11,7 +11,7 @@ spec:
   source:
     path: application/deployment
     repoURL: https://github.com/dirien/digitalocean-kubernetes-challenge.git
-    targetRevision: cicd
+    targetRevision: main
   syncPolicy:
     automated: { }
     syncOptions:
