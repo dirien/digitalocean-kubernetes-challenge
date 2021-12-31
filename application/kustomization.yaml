@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
   - tekton/lofi-tekton.yaml
-  - deployment/
+  - deployment/lofi-app.yaml

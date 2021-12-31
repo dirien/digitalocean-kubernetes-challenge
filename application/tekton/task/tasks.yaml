@@ -46,6 +46,9 @@ spec:
   params:
     - name: image
       description: Name (reference) of the image to build.
+    - name: version
+      description: Version of the image to build.
+      default: "latest"
     - name: dockerfile
       description: Path to the Dockerfile to build.
       default: ./Dockerfile
@@ -71,7 +74,8 @@ spec:
       args:
         - --dockerfile=$(params.dockerfile)
         - --context=$(workspaces.source.path)/$(params.context)  # The user does not need to care the workspace and the source.
-        - --destination=$(params.image)
+        - --destination=$(params.image):$(params.version)
         - --oci-layout-path=$(workspaces.source.path)/$(params.context)/image-digest
+        - --reproducible
       securityContext:
         runAsUser: 0

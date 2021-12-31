@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lofi
+  annotations:
+    "external-dns.alpha.kubernetes.io/hostname": "lofi.ediri.online"
+    "external-dns.alpha.kubernetes.io/ttl": "60"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: lofi.ediri.online
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: lofi
+                port:
+                  number: 8080
+  tls:
+    - hosts:
+        - lofi.ediri.online
+      secretName: lofi-tls
