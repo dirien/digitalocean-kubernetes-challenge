@@ -15,7 +15,7 @@ spec:
         pipelineRef:
           name: lofi-pipeline
           params:
-            - name: gitrevision
+            - name: revision
               value: $(tt.params.gitrevision)
           podTemplate:
             nodeSelector:
