@@ -37,7 +37,7 @@ spec:
         - name: package
           value: github.com/dirien/simple
         - name: packages
-          value: application/lofi-app
+          value: ./application/lofi-app
       taskRef:
         name: golang-build
         bundle: gcr.io/tekton-releases/catalog/upstream/golang-build:0.3
