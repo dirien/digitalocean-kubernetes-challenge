@@ -14,7 +14,6 @@ spec:
           value: 'https://github.com/dirien/digitalocean-kubernetes-challenge.git'
         - name: revision
           value: cicd
-        - name: package
       taskRef:
         name: git-clone
         bundle: gcr.io/tekton-releases/catalog/upstream/git-clone:0.5
@@ -24,7 +23,7 @@ spec:
     - name: golangci-lint
       params:
         - name: package
-          value: $(params.package)
+          value: github.com/dirien/simple
         - name: context
           value: application/lofi-app
       taskRef:
