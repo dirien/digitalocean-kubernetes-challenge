@@ -46,7 +46,14 @@ spec:
       workspaces:
         - name: source
           workspace: source-dir
-
+    - name: list-directory
+      taskRef:
+        name: list-directory
+      runAfter:
+        - golang-build
+      workspaces:
+        - name: source
+          workspace: source-dir
 ---
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
