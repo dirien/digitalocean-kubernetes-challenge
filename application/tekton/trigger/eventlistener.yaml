@@ -9,6 +9,10 @@ spec:
         - ref:
             name: "github"
           params:
+            - name: "secretRef"
+              value:
+                secretName: github-secret
+                secretKey: secretToken
             - name: "eventTypes"
               value: [ "pull_request" ]
         - name: "only when PRs are opened"
