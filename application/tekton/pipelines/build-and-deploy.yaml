@@ -7,7 +7,7 @@ spec:
     - name: source-dir
   params:
     - name: revision
-      value: cicd
+      default: cicd
   tasks:
     - name: git-clone
       params:
