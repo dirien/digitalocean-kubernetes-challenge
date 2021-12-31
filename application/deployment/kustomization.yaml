@@ -6,7 +6,7 @@ namespace: lofi
 images:
   - name: lofi
     newName: ghcr.io/dirien/lofi-app
-    newTag: latest
+    newTag: latest@sha256:06fcd530aa3b544e05de648010665a0858bc2a28e7a1cd4adf3f5230a3c9fa1e
 
 resources:
   - deployment.yaml
