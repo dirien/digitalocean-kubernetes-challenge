@@ -28,7 +28,7 @@ spec:
     - name: tag
       default: "latest"
     - name: ldflags
-      default: "-X main.version=${PIPELINE_VERSION}"
+      default: ""
   steps:
     - name: build
       image: golang:$(params.tag)
