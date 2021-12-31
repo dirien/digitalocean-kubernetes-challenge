@@ -60,7 +60,7 @@ spec:
     - name: dockerconfig
       description: Includes a docker `config.json`
       optional: true
-      mountPath: /kaniko/.docker/config.json
+      mountPath: /kaniko/.docker/
   results:
     - name: imageDigest
       description: Digest of the image just built.

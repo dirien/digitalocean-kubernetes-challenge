@@ -89,6 +89,9 @@ spec:
     - name: dockerconfig
       secret:
         secretName: kaniko-github-configjson
+        items:
+          - key: .dockerconfigjson
+            path: config.json
     - name: source-dir
       volumeClaimTemplate:
         spec:
