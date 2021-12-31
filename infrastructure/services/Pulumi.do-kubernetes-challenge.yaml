@@ -1,0 +1,10 @@
+config:
+  services:auth0Domain: ediri.eu.auth0.com
+  services:do_token:
+    secure: AAABAAsxJ05f1PS7oPKR1QxIZQ1fra1+GKVgjiDHbP0GHDtJdqvbkXJF1ueATc2JwBsSpo+OX/S6htLyexry1RpPNGyvqvLk+O7S0zvVAytY2HVlFC7yXUSXS0CVC+im
+  services:grafana-password:
+    secure: AAABAGMOOfp16UReyGARDZuh/zy8Z8185VQZ2I50ygckTo8qErugAaXuRoKu8jU=
+  services:spaces_access_id:
+    secure: AAABAFTTvM1VYaoQmYKsVJT9oRwyYQAIiPdC5Z6xJoI6wVHFgldv1lxQoauOW0aIiiHdEA==
+  services:spaces_secret_key:
+    secure: AAABAI1DCVVJzgJsJCslMiOSDYrVbpUVYpFy31wBnxahQsaQdGewoQoPX8BfedwhUr98C7NOWTZ4E6JLDLyV/yKZhkrTTUEqJ/Vl
