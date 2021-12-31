@@ -8,15 +8,15 @@ spec:
       interceptors:
         - ref:
             name: "github"
-            params:
-              - name: "secretRef"
-                value:
-                  secretName: github-secret
-                  secretKey: secretToken
-              - name: "eventTypes"
-                value: [
-                    "push"
-                ]
+          params:
+            - name: "secretRef"
+              value:
+                secretName: github-secret
+                secretKey: secretToken
+            - name: "eventTypes"
+              value: [
+                  "push"
+              ]
       bindings:
         - ref: github-push-binding
       template:
