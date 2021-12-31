@@ -14,13 +14,7 @@ spec:
                 secretName: github-secret
                 secretKey: secretToken
             - name: "eventTypes"
-              value: [ "pull_request" ]
-        - name: "only when PRs are opened"
-          ref:
-            name: "cel"
-          params:
-            - name: "filter"
-              value: "body.action in ['opened', 'synchronize', 'reopened']"
+              value: [ "pull_request","push" ]
       bindings:
         - ref: github-pr-binding
       template:
