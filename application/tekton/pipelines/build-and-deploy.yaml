@@ -31,20 +31,3 @@ spec:
         - name: output
           workspace: source-dir
 
----
-apiVersion: tekton.dev/v1beta1
-kind: PipelineRun
-metadata:
-  name: tekton-argocd-example-build-deploy-pipeline-run
-spec:
-  pipelineRef:
-    name: tekton-argocd-example-build-deploy-pipeline
-  workspaces:
-    - name: source-dir
-      volumeClaimTemplate:
-        spec:
-          resources:
-            requests:
-              storage: 5Gi
-          accessModes:
-            - ReadWriteOnce
