@@ -5,9 +5,12 @@ metadata:
 spec:
   workspaces:
     - name: source
+  params:
+    - name: path
+      value: ""
   steps:
     - name: list
       image: alpine:latest
       workingDir: $(workspaces.source.path)
       script: |
-        ls -la
+        ls -laR $(params.path)

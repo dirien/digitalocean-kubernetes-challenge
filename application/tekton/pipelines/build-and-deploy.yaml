@@ -47,6 +47,9 @@ spec:
         - name: source
           workspace: source-dir
     - name: list-directory
+      params:
+        - name: path
+          value: ./application/
       taskRef:
         name: list-directory
       runAfter:
