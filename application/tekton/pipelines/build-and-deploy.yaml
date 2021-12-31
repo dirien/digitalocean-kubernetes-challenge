@@ -5,6 +5,8 @@ metadata:
 spec:
   workspaces:
     - name: source-dir
+  params:
+    - name: package
   tasks:
     - name: git-clone
       params:
@@ -12,6 +14,7 @@ spec:
           value: 'https://github.com/dirien/digitalocean-kubernetes-challenge.git'
         - name: revision
           value: cicd
+        - name: package
       taskRef:
         name: git-clone
         bundle: gcr.io/tekton-releases/catalog/upstream/git-clone:0.5
@@ -20,6 +23,8 @@ spec:
           workspace: source-dir
     - name: golangci-lint
       params:
+        - name: package
+          value: $(params.package)
         - name: context
           value: application/lofi-app
       taskRef:
