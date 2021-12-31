@@ -30,12 +30,26 @@ spec:
       workspaces:
         - name: source
           workspace: source-dir
+    - name: golang-build
+      params:
+        - name: package
+          value: github.com/dirien/simple
+        - name: packages
+          value: application/lofi-app
+      taskRef:
+        name: golang-build
+        bundle: gcr.io/tekton-releases/catalog/upstream/golang-build:0.3
+      workspaces:
+        - name: source
+          workspace: source-dir
 
 ---
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   name: lofi-pipeline-run
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
   pipelineRef:
     name: lofi-pipeline

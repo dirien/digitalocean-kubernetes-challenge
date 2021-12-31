@@ -15,12 +15,17 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
 		w.Header().Set("Content-Type", "image/gif")
-		io.WriteString(w, string(font))
+		if _, err := io.WriteString(w, string(font)); err != nil {
+			log.Fatal(err)
+		}
 	})
 
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		io.WriteString(w, "OK")
+		if _, err := io.WriteString(w, "OK"); err != nil {
+			log.Fatal(err)
+		}
+
 	})
 
 	err := http.ListenAndServe(":8080", nil)
