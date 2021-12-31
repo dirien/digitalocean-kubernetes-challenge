@@ -6,3 +6,4 @@ resources:
   - triggerbinding.yaml
   - eventlistener.yaml
   - triggertemplate.yaml
+  - rbac.yaml
