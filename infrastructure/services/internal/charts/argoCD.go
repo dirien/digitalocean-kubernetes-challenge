@@ -43,7 +43,7 @@ requestedScopes:
 	argocd, err := helm.NewRelease(ctx, "argocd-helm", &helm.ReleaseArgs{
 		Name:      pulumi.String(argocdReleaseName),
 		Chart:     pulumi.String("argo-cd"),
-		Version:   pulumi.String("3.29.4"),
+		Version:   pulumi.String("3.29.5"),
 		Namespace: argocdNS.Metadata.Name(),
 		RepositoryOpts: helm.RepositoryOptsArgs{
 			Repo: pulumi.String("https://argoproj.github.io/argo-helm"),
