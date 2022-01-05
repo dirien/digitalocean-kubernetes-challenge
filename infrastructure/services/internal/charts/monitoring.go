@@ -191,7 +191,7 @@ func NewMonitoring(ctx *pulumi.Context, args CreateChartArgs, parent *helm.Relea
 	stack, err := helm.NewRelease(ctx, "kube-prometheus-stack", &helm.ReleaseArgs{
 		Name:            pulumi.String("kube-prometheus-stack"),
 		Chart:           pulumi.String("kube-prometheus-stack"),
-		Version:         pulumi.String("25.2.0"),
+		Version:         pulumi.String("27.2.1"),
 		Namespace:       monitoring.Metadata.Name(),
 		CreateNamespace: pulumi.Bool(false),
 		RepositoryOpts: helm.RepositoryOptsArgs{
