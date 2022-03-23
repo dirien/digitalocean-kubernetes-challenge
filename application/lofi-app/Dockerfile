@@ -6,7 +6,7 @@ ARG arch
 RUN go mod tidy
 RUN env $opts $arch go build -o simple main.go
 
-FROM alpine:3.15.1
+FROM alpine:3.15.2
 ARG arch
 LABEL arch=$arch
 LABEL maintainer="Engin Diri <info@ediri.de>"
